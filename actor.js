@@ -14,6 +14,24 @@ class Actor {
     // Velocity changes the mover's position.
     this.position.add(this.velocity);
     this.acceleration.set(0, 0);
+
+    this.checkEdge();
+  }
+
+  checkEdge(){
+    if (this.position.x - 30 > width){
+      this.position.x = 0;
+    }
+    if(this.position.x + 30 < 0){
+      this.position.x = width;
+    }
+
+    if(this.position.y - 30 > height){
+      this.position.y = 0;
+    }
+    if(this.position.y + 30 < 0){
+      this.position.y = height;
+    }
   }
 
   display() {
