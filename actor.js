@@ -15,7 +15,7 @@ class Actor {
     
     // Velocity changes the mover's position.
     this.position.add(this.velocity);
-    text(this.velocity.mag(), 10, 40);
+    
     
     this.acceleration.set(0, 0);
   }

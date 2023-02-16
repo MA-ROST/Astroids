@@ -1,4 +1,4 @@
-class Player extends Actor{}class Player extends Actor {
+class Player extends Actor {
     constructor(position, speedd){
       super(position, speedd);
       
@@ -9,8 +9,10 @@ class Player extends Actor{}class Player extends Actor {
       this.angle += key;
     }
     
-    thrust(){
-      
+    thrust(key){
+      let thrust = createVector(0,1);
+      thrust.setHeading(this.angle-HALF_PI);
+      this.acceleration.add(thrust);
     }
     
     keyRelease(isVert){
@@ -23,7 +25,6 @@ class Player extends Actor{}class Player extends Actor {
     }
     
     display(){
-      let angle = atan2(this.velocity.y/2, this.velocity.x/2);
       push();
         translate (this.position.x, this.position.y);
         rotate(this.angle);
