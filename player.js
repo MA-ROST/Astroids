@@ -15,9 +15,8 @@ class Player extends Actor {
   }
 
   engineOff() {
-    const vMag = this.velocity.mag();
-
-    if (vMag < 0.05) {
+    if (this.velocity.mag() < 0.01) {
+      // Stops infinite numbers
       this.velocity.set(0);
     } else {
       this.velocity.lerp(0, 0, 0, 0.02);
@@ -36,7 +35,7 @@ class Player extends Actor {
     push();
       translate(this.position.x, this.position.y);
       rotate(this.angle);
-      triangle(0, -30, 10, 30, -10, 30);
+      triangle(0, -20, 10, 15, -10, 15);
     pop();
 
     text(this.angle, 10, 20);
