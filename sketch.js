@@ -4,9 +4,7 @@ let speedd = 2;
 
 function setup() {
   createCanvas(400, 400);
-  
-  
-  
+
   let loca = createVector(width/2, height/2);
   
    ship = new Actor(loca, 2);
