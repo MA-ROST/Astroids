@@ -7,7 +7,7 @@ function setup() {
 
   let loca = createVector(width/2, height/2);
   
-   ship = new Actor(loca, 2);
+  ship = new Player(loca, 2);
 }
 
 function draw() {
@@ -15,24 +15,18 @@ function draw() {
   
   ship.display();
   ship.update();
-}
 
-function keyPressed() {
-  if (keyCode === UP_ARROW) {
-    ship.keyPress(createVector(0, -speedd));
-  } else if (keyCode === DOWN_ARROW) {
-    ship.keyPress(createVector(0, speedd));
+  if (keyIsDown (UP_ARROW)) {
+    ship.thrust(1);
   }
   
-  
-  
-  if (keyCode === LEFT_ARROW) {
-    ship.keyPress(createVector(-speedd, 0));
-  } else if (keyCode === RIGHT_ARROW) {
-    ship.keyPress(createVector(speedd, 0));
+  if (keyIsDown(LEFT_ARROW)){
+    ship.setAngle(-0.05);
+  }
+  if (keyIsDown(RIGHT_ARROW)){
+    ship.setAngle(0.05);
   }
 }
-
 
 function keyReleased() {
   if (keyCode === UP_ARROW) {
