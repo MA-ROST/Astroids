@@ -1,13 +1,17 @@
 let ship;
 
+let enemy;
+
 let speedd = 2;
 
 function setup() {
   createCanvas(400, 400);
 
-  let loca = createVector(width / 2, height / 2);
+  let centerScreen = createVector(width / 2, height / 2);
+  let enemyLocat = createVector(0, height / 2);
 
-  ship = new Player(loca, 2);
+  ship = new Player(centerScreen, 2);
+  enemy = new Saucer (enemyLocat, 2);
 }
 
 function draw() {
@@ -29,6 +33,10 @@ function draw() {
   if (keyIsDown(RIGHT_ARROW)) {
     ship.setAngle(0.05);
   }
+
+  enemy.display();
+  enemy.move();
+
 }
 
 function keyReleased() {
