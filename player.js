@@ -1,7 +1,6 @@
 class Player extends Actor {
   constructor(position, speedd) {
     super(position, speedd);
-    this.angle = 0;
   }
 
   setAngle(key) {

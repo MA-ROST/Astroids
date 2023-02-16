@@ -5,6 +5,8 @@ class Actor {
     this.acceleration = createVector(0, 0);
 
     this.speed = speedd;
+
+    this.angle = 0;
   }
 
   update() {
