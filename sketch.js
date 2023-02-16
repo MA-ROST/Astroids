@@ -35,7 +35,7 @@ function draw() {
   }
 
   enemy.display();
-  enemy.move();
+  enemy.update();
 
 }
 

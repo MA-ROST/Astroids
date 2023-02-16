@@ -17,10 +17,29 @@ class Actor {
     this.position.add(this.velocity);
     this.acceleration.set(0, 0);
 
-    this.checkEdge();
+    if (this.isOnEdge()){
+      this.loopEdge();
+    }
   }
 
-  checkEdge(){
+  isOnEdge(){
+    if (this.position.x - 30 > width){
+      return true;
+    }
+    if(this.position.x + 30 < 0){
+      return true;
+    }
+
+    if(this.position.y - 30 > height){
+      return true;
+    }
+    if(this.position.y + 30 < 0){
+      return true;
+    }
+    return false;
+  }
+
+  loopEdge(){
     if (this.position.x - 30 > width){
       this.position.x = 0;
     }
