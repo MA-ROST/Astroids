@@ -11,6 +11,7 @@ class Player extends Actor {
     if (this.isHit && !this.increment) {
       this.lives -= 1;
       this.increment = true;
+      this.respawn();
     }
   }
 
@@ -41,17 +42,30 @@ class Player extends Actor {
     }
   }
 
-  respawn() {
+  randomLocation() {
     this.position = createVector(
       random(100, width - 100),
       random(100, height - 100)
     );
+
+    this.angle = random(0, 359);
+
+    this.velocity.x = 0;
+    this.velocity.y = 0;
+  }
+
+  respawn() {
+    this.position = createVector(width / 2, height / 2);
+    this.angle = 0;
+
+    this.velocity.x = 0;
+    this.velocity.y = 0;
   }
 
   display() {
     push();
-    fill("white");
     if (this.isHit == true) fill("red");
+    else fill("white");
     translate(this.position.x, this.position.y);
     rotate(this.angle);
     triangle(0, -20, 10, 15, -10, 15);
@@ -67,6 +81,7 @@ class Player extends Actor {
     text(this.velocity, 10, 60);
     text(this.position, 10, 80);
     text(this.isHit, 10, 100);
+    text(this.test, 10, 120);
     text(this.lives, 10, height - 20);
   }
 }

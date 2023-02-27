@@ -1,5 +1,6 @@
 let ship;
 let enemy;
+let astroids = [];
 
 let speedd = 2;
 
@@ -31,10 +32,6 @@ function draw() {
 
   if (keyIsDown(RIGHT_ARROW)) {
     ship.setAngle(0.05);
-  }
-
-  if (keyIsDown(82)) {
-    ship.respawn();
   }
 
   enemy.display();
