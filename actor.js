@@ -7,6 +7,8 @@ class Actor {
     this.speed = speedd;
 
     this.angle = 0;
+
+    this.collide = new Rect (0,0,0,0);
   }
 
   update() {
@@ -20,6 +22,10 @@ class Actor {
     if (this.isOnEdge()){
       this.loopEdge();
     }
+  }
+
+  isCollide(actor){
+    
   }
 
   isOnEdge(){
