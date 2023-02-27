@@ -8,7 +8,10 @@ class Actor {
 
     this.angle = 0;
 
-    this.collide = new Rect (0,0,0,0);
+    this.collide = new Rect(0, 0, 0, 0);
+
+    this.isHit = false;
+    this.increment = false;
   }
 
   update() {
@@ -19,44 +22,57 @@ class Actor {
     this.position.add(this.velocity);
     this.acceleration.set(0, 0);
 
-    if (this.isOnEdge()){
+    if (this.isOnEdge()) {
       this.loopEdge();
     }
   }
 
-  isCollide(actor){
-    
+  isCollide(actor) {
+    if (this.position.dist(actor.position) < 20){
+      this.hasCollided(true);
+      actor.hasCollided(true);
+    }
+    else {
+      this.hasCollided(false);
+      actor.hasCollided(false);
+      this.increment = false;
+      actor.increment = false;
+    }
   }
 
-  isOnEdge(){
-    if (this.position.x - 30 > width){
+  hasCollided(outcome){
+    this.isHit = outcome;
+  }
+
+  isOnEdge() {
+    if (this.position.x - 30 > width) {
       return true;
     }
-    if(this.position.x + 30 < 0){
+    if (this.position.x + 30 < 0) {
       return true;
     }
 
-    if(this.position.y - 30 > height){
+    if (this.position.y - 30 > height) {
       return true;
     }
-    if(this.position.y + 30 < 0){
+    if (this.position.y + 30 < 0) {
       return true;
     }
     return false;
   }
 
-  loopEdge(){
-    if (this.position.x - 30 > width){
+  loopEdge() {
+    if (this.position.x - 30 > width) {
       this.position.x = 0;
     }
-    if(this.position.x + 30 < 0){
+    if (this.position.x + 30 < 0) {
       this.position.x = width;
     }
 
-    if(this.position.y - 30 > height){
+    if (this.position.y - 30 > height) {
       this.position.y = 0;
     }
-    if(this.position.y + 30 < 0){
+    if (this.position.y + 30 < 0) {
       this.position.y = height;
     }
   }

@@ -1,5 +1,4 @@
 let ship;
-
 let enemy;
 
 let speedd = 2;
@@ -11,7 +10,7 @@ function setup() {
   let enemyLocat = createVector(0, height / 2);
 
   ship = new Player(centerScreen, 2);
-  enemy = new Saucer (enemyLocat, 2);
+  enemy = new Saucer(enemyLocat, 2.5);
 }
 
 function draw() {
@@ -34,9 +33,14 @@ function draw() {
     ship.setAngle(0.05);
   }
 
+  if (keyIsDown(82)) {
+    ship.respawn();
+  }
+
   enemy.display();
   enemy.update();
 
+  ship.isCollide(enemy);
 }
 
 function keyReleased() {

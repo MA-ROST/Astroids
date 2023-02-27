@@ -4,7 +4,7 @@ class Saucer extends Actor {
   }
 
   update() {
-    this.position.x += 2.5;
+    this.position.x += this.speed;
 
     if (this.position.x > width) {
       this.position.x = 0;
