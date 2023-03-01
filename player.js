@@ -4,9 +4,8 @@ class Player extends Actor {
     this.collide = new Rect(0, 0, 20, 40);
     this.lives = 3;
 
-
     let bleh = createVector(0, -30);
-    this.bullet = new Bullet (bleh, 2, this.angle);
+    this.bullet = new Bullet(bleh, 2, this.angle);
   }
 
   hasCollided(outcome) {
@@ -68,12 +67,12 @@ class Player extends Actor {
 
   display() {
     push();
-      if (this.isHit == true) fill("red");
-      else fill("white");
-      translate(this.position.x, this.position.y);
-      rotate(this.angle);
-      triangle(0, -20, 10, 15, -10, 15);
-    
+    if (this.isHit == true) fill("red");
+    else fill("white");
+    translate(this.position.x, this.position.y);
+    rotate(this.angle);
+    triangle(0, -20, 10, 15, -10, 15);
+
     pop();
 
     this.collide.updatePosition(
@@ -81,41 +80,24 @@ class Player extends Actor {
       this.position.y - this.collide.h / 2
     );
 
-    const tip = createVector(0,-30);
+    const tip = createVector(0, -30);
 
     push();
-      fill("brown");
-      translate(this.position.x, this.position.y);
-      rotate(this.angle);
-      let that = p5.Vector.add(tip, this.position);
-      let those = that.rotate(this.angle);
-      //circle(tip.x,tip.y, 10);
+    translate(this.position.x, this.position.y);
+    rotate(this.angle);
+    let that = p5.Vector.add(tip, this.position);
+    let those = that.rotate(this.angle);
+    circle(tip.x, tip.y, 10);
 
-      // this.bullet.updatePosition(tip.x, tip.y-30, this.angle);
-      fill("green");
-      this.bullet.display();
     pop();
-    //this.bullet.updatePosition(this.position.x, this.position.y-30, this.angle);
-      
-    // Disentangle bullet from position
 
     text(this.angle, 10, 20);
-    text(this.acceleration.x, 10, 40);
+    text(this.acceleration, 10, 40);
     text(this.velocity, 10, 60);
     text(this.position, 10, 80);
     text(this.isHit, 10, 100);
     text(this.test, 10, 120);
     text(this.lives, 10, height - 20);
     text(this.tip, 10, 140);
-  }
-
-
-  vectorString(vect){
-    return "[" + vect.x + " ," + vect.y + "]";
-  }
-
-  fireBullet(){
-    let bleh = createVector(this.position.x, this.position.y-30);
-    this.bullet = new Bullet (bleh, 2, this.angle);
   }
 }

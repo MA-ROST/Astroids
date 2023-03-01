@@ -12,6 +12,10 @@ function setup() {
 
   ship = new Player(centerScreen, 2);
   enemy = new Saucer(enemyLocat, 2.5);
+  for (let i = 0; i < 10; i++) {
+    let astroidLoc = createVector(0, random(100, height - 100));
+    astroids.push(new Astroid(astroidLoc, 2, 3));
+  }
 }
 
 function draw() {
@@ -37,7 +41,12 @@ function draw() {
   enemy.display();
   enemy.update();
 
-  ship.isCollide(enemy);
+  //ship.isCollide(enemy);
+
+
+  for (let i = 0; i < astroids.length; i++) {
+    astroids[i].display();
+  }
 }
 
 function keyReleased() {
