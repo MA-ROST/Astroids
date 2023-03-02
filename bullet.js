@@ -1,9 +1,31 @@
 class Bullet extends Actor {
-  constructor(position, thrustValue, angle) {
-    super(position, thrustValue);
+  constructor(position, velocity, color, ttl) {
+    super(position, 2);
 
-    this.angle = angle;
-    this.isShot = false;
+    this.acceleration.set(velocity);
+
+    //this.angle = angle;
+    //this.isShot = false;
+    
+    this.color = color;
+    this.ttl = ttl;
+  }
+
+  update(){
+    this.ttl = max(this.ttl - 1, 0);
+    super.update();
+  }
+
+  alive(){
+    return this.ttl != 0;
+  }
+
+  draw(){
+    push();
+      fill(this.color);
+      circle(this.position.x, this.position.y, 10);
+    pop();
+
   }
 
   fire(){
@@ -22,6 +44,8 @@ class Bullet extends Actor {
 
   display() {
     
+
+    
     if (this.isShot){
       text(this.position, 10, 160);   
       circle(this.position.x, this.position.y, 10);
@@ -39,4 +63,6 @@ class Bullet extends Actor {
       
     }
   }
+
+  
 }
