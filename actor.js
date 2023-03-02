@@ -22,7 +22,7 @@ class Actor {
     this.position.add(this.velocity);
     this.acceleration.set(0, 0);
 
-    if (this.isOnEdge()) {
+    if (this.isOnEdge(this.position)) {
       this.loopEdge();
     }
   }
@@ -44,18 +44,18 @@ class Actor {
     this.isHit = outcome;
   }
 
-  isOnEdge() {
-    if (this.position.x - 30 > width) {
+  isOnEdge(vect) {
+    if (vect.x - 30 > width) {
       return true;
     }
-    if (this.position.x + 30 < 0) {
+    if (vect.x + 30 < 0) {
       return true;
     }
 
-    if (this.position.y - 30 > height) {
+    if (vect.y - 30 > height) {
       return true;
     }
-    if (this.position.y + 30 < 0) {
+    if (vect.y + 30 < 0) {
       return true;
     }
     return false;

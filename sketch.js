@@ -2,7 +2,7 @@ let ship;
 let enemy;
 let astroids = [];
 
-let speedd = 2;
+let thrustValue = 2;
 
 function setup() {
   createCanvas(400, 400);

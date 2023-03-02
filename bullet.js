@@ -25,7 +25,7 @@ class Bullet extends Actor {
     if (this.isShot){
       text(this.position, 10, 160);   
       circle(this.position.x, this.position.y, 10);
-      let onEdge = this.isOnEdge();
+      let onEdge = this.isOnEdge(this.position);
       if(onEdge){
         this.isShot = false;
       }
