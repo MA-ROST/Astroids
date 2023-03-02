@@ -18,7 +18,7 @@ function setup() {
   ship = new Player(bulletManager);
   //enemy = new Saucer(enemyLocat, 2.5);
   for (let i = 0; i < 10; i++) {
-    astroids.push(new Astroid(2, 3));
+    //astroids.push(new Astroid(2, 3));
   }
 }
 
@@ -31,7 +31,7 @@ function draw() {
   if (keyIsDown(UP_ARROW)) {
     ship.thrust(1);
   } else {
-    ship.engineOff();
+    ship.thrust(0);
   }
 
   if (keyIsDown(LEFT_ARROW)) {
@@ -47,9 +47,11 @@ function draw() {
 
   //ship.isCollide(enemy);
 
-  for (let i = 0; i < astroids.length; i++) {
-    astroids[i].display();
-  }
+  asteroidManager.draw();
+  asteroidManager.update();
+
+  bulletManager.draw();
+  bulletManager.update();
 }
 
 function keyReleased() {

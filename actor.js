@@ -1,10 +1,10 @@
 class Actor {
-  constructor(position, thrustValue) {
+  constructor(position, thrustLimit) {
     this.position = position;
     this.velocity = createVector(0, 0);
     this.acceleration = createVector(0, 0);
 
-    this.thrustValue = thrustValue;
+    this.thrustLimit = thrustLimit;
 
     this.angle = 0;
 
@@ -15,7 +15,7 @@ class Actor {
   }
 
   update() {
-    this.velocity.limit(this.thrustValue);
+    this.velocity.limit(this.thrustLimit);
     // Acceleration changes the mover's velocity.
     this.velocity.add(this.acceleration);
     // Velocity changes the mover's position.
@@ -28,11 +28,10 @@ class Actor {
   }
 
   isCollide(actor) {
-    if (this.position.dist(actor.position) < 20){
+    if (this.position.dist(actor.position) < 20) {
       this.hasCollided(true);
       actor.hasCollided(true);
-    }
-    else {
+    } else {
       this.hasCollided(false);
       actor.hasCollided(false);
       this.increment = false;
@@ -40,7 +39,7 @@ class Actor {
     }
   }
 
-  hasCollided(outcome){
+  hasCollided(outcome) {
     this.isHit = outcome;
   }
 

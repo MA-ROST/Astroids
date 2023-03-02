@@ -23,14 +23,24 @@ class Player extends Actor {
     this.angle += key;
   }
 
-  thrust(key) {
-    let thrust = createVector(0, 1);
-    thrust.setHeading(this.angle - HALF_PI);
-    this.acceleration.add(thrust);
+  thrust(isOn) {
+    if (isOn) {
+      let thrust = createVector(0, 1);
+      thrust.setHeading(this.angle - HALF_PI);
+      this.acceleration.add(thrust);
+    } else {
+      // Stops infinite numbers
+      if (this.velocity.mag() < 0.05) {
+        this.acceleration.set(0, 0);
+        this.velocity.set(0);
+      } else {
+        this.velocity.lerp(0, 0, 0, 0.03);
+      }
+    }
   }
 
   update(){
-    this.velocity.limit(this.thrustValue);
+    this.velocity.limit(this.thrustLimit);
     // Acceleration changes the mover's velocity.
     this.velocity.add(this.acceleration);
     // Velocity changes the mover's position.
@@ -46,8 +56,8 @@ class Player extends Actor {
   }
 
   engineOff() {
+    // Stops infinite numbers
     if (this.velocity.mag() < 0.05) {
-      // Stops infinite numbers
       this.acceleration.set(0, 0);
       this.velocity.set(0);
     } else {
