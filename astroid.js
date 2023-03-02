@@ -1,6 +1,6 @@
 class Astroid extends Actor {
-  constructor(position, speedd, size, manager) {
-    super(position, speedd);
+  constructor(thrustValue, size, manager) {
+    super(createVector(0, random(100, height - 100)), thrustValue);
 
     // 3 = large
     // 2 = med
@@ -8,6 +8,12 @@ class Astroid extends Actor {
     this.size = size; 
     this.radius = this.size * 10;
     this.manager = manager;
+
+    this.total = floor(random(5,15));
+    this.offset = [];
+    for (let i = 0; i < this.total; i++) {
+      this.offset[i] = random(-5,5);
+    }
   }
 
   hasCollided(outcome){
@@ -29,12 +35,13 @@ class Astroid extends Actor {
   display() {
     //circle(this.position.x, this.position.y, this.radius);
     push();
-      translate(this.position.x, this.position.y);
+      translate(width/2, this.position.y);
       beginShape();
       for (let i = 0; i < 10; i++) {
-        var angle = map (i, 0, 10, 0, TWO_PI);
-        var x = this.radius * cos(angle);
-        var y = this.radius * sin(angle);
+        var angle = map (i, 0, this.total, 0, TWO_PI);
+        var r = this.radius+this.offset[i];
+        var x = r * cos(angle);
+        var y = r * sin(angle);
         vertex(x,y);
       }
       endShape(CLOSE);
