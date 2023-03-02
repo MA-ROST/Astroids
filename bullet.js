@@ -1,6 +1,6 @@
 class Bullet extends Actor {
-  constructor(position, speedd, angle) {
-    super(position, speedd);
+  constructor(position, thrustValue, angle) {
+    super(position, thrustValue);
   }
 
   updatePosition(x, y, angle) {

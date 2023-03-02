@@ -7,11 +7,10 @@ let speedd = 2;
 function setup() {
   createCanvas(400, 400);
 
-  let centerScreen = createVector(width / 2, height / 2);
   let enemyLocat = createVector(0, height / 2);
 
-  ship = new Player(centerScreen, 2);
-  enemy = new Saucer(enemyLocat, 2.5);
+  ship = new Player();
+  //enemy = new Saucer(enemyLocat, 2.5);
   for (let i = 0; i < 10; i++) {
     let astroidLoc = createVector(0, random(100, height - 100));
     astroids.push(new Astroid(astroidLoc, 2, 3));
@@ -38,8 +37,8 @@ function draw() {
     ship.setAngle(0.05);
   }
 
-  enemy.display();
-  enemy.update();
+  //enemy.display();
+  //enemy.update();
 
   //ship.isCollide(enemy);
 

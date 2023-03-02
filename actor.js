@@ -1,10 +1,10 @@
 class Actor {
-  constructor(position, speedd) {
+  constructor(position, thrustValue) {
     this.position = position;
     this.velocity = createVector(0, 0);
     this.acceleration = createVector(0, 0);
 
-    this.speed = speedd;
+    this.thrustValue = thrustValue;
 
     this.angle = 0;
 
@@ -15,7 +15,7 @@ class Actor {
   }
 
   update() {
-    this.velocity.limit(this.speed);
+    this.velocity.limit(this.thrustValue);
     // Acceleration changes the mover's velocity.
     this.velocity.add(this.acceleration);
     // Velocity changes the mover's position.

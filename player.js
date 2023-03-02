@@ -1,11 +1,11 @@
 class Player extends Actor {
-  constructor(position, speedd) {
-    super(position, speedd);
+  constructor() {
+    super(createVector(width/2, height/2), 2);
     this.collide = new Rect(0, 0, 20, 40);
     this.lives = 3;
 
     let bleh = createVector(0, -30);
-    this.bullet = new Bullet(bleh, 2, this.angle);
+    this.bullet = new Bullet(this.position.copy(), 2, this.angle);
   }
 
   hasCollided(outcome) {
