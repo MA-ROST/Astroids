@@ -3,12 +3,19 @@ let enemy;
 
 let bulletManager;
 let astroidManager;
+let gameManager;
+
+let startBtn;
 
 let thrustValue = 2;
 
 function setup() {
   createCanvas(400, 400);
 
+  startBtn = createButton("START!");
+  startBtn.position(0, 0);
+
+  gameManager = new GameManager(startBtn);
   bulletManager = new BulletManager();
   astroidManager = new AstroidManager();
 
@@ -17,6 +24,12 @@ function setup() {
   ship = new Player(bulletManager);
   //enemy = new Saucer(enemyLocat, 2.5);
   astroidManager.addAstroids(10, astroidManager);
+
+  var startMode = function name() {
+    gameManager.activeMode = 1;
+    startBtn.hide();
+  }
+  startBtn.mousePressed(startMode);
 }
 
 function draw() {
