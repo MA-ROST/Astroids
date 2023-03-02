@@ -1,9 +1,8 @@
 let ship;
 let enemy;
-let astroids = [];
 
 let bulletManager;
-let asteroidManager;
+let astroidManager;
 
 let thrustValue = 2;
 
@@ -11,19 +10,32 @@ function setup() {
   createCanvas(400, 400);
 
   bulletManager = new BulletManager();
-  asteroidManager = new AstroidManager();
+  astroidManager = new AstroidManager();
 
   let enemyLocat = createVector(0, height / 2);
 
   ship = new Player(bulletManager);
   //enemy = new Saucer(enemyLocat, 2.5);
+  astroidManager.addAstroids(10, astroidManager);
+
   for (let i = 0; i < 10; i++) {
-    //astroids.push(new Astroid(2, 3));
+    astroidManager.addAstroid();
   }
 }
 
 function draw() {
   background(220);
+
+  //enemy.display();
+  //enemy.update();
+
+  //ship.isCollide(enemy);
+
+  astroidManager.draw();
+  astroidManager.update();
+
+  bulletManager.draw();
+  bulletManager.update();
 
   ship.display();
   ship.update();
@@ -37,21 +49,9 @@ function draw() {
   if (keyIsDown(LEFT_ARROW)) {
     ship.turnShip(-0.05);
   }
-
   if (keyIsDown(RIGHT_ARROW)) {
     ship.turnShip(0.05);
   }
-
-  //enemy.display();
-  //enemy.update();
-
-  //ship.isCollide(enemy);
-
-  asteroidManager.draw();
-  asteroidManager.update();
-
-  bulletManager.draw();
-  bulletManager.update();
 }
 
 function keyReleased() {
