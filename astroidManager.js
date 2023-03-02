@@ -3,13 +3,17 @@ class AstroidManager {
     this.astroids = [];
   }
 
-  addAstroid(manager){
-    this.astroids.push(new Astroid(2, 3, manager));
+  isEmpty() {
+    return this.astroids.length.isEmpty;
   }
 
-  addAstroids(amount, manager){
+  addAstroid(manager, size, position, angle) {
+    this.astroids.push(new Astroid(manager, size, position, angle));
+  }
+
+  addAstroids(amount, manager, size, position, angle) {
     for (let i = 0; i < amount; i++) {
-      this.astroids[i] = new Astroid(2, 3, manager);
+      this.addAstroid(manager, size, position, angle);
     }
   }
 
@@ -18,7 +22,8 @@ class AstroidManager {
       astroid.update();
     }
 
-    //this.asteroids = this.asteroids.filter((astroid) => astroid.alive());
+    this.astroids = this.astroids.filter((astroid) => astroid.alive() == false);
+    this.astroids = this.astroids.filter((astroid) => astroid.size > 0);
   }
 
   draw() {

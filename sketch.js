@@ -18,12 +18,12 @@ function setup() {
   gameManager = new GameManager(startBtn);
   bulletManager = new BulletManager();
   astroidManager = new AstroidManager();
+  astroidManager.addAstroids(10, astroidManager, 3);
 
   let enemyLocat = createVector(0, height / 2);
 
   ship = new Player(bulletManager);
   //enemy = new Saucer(enemyLocat, 2.5);
-  astroidManager.addAstroids(10, astroidManager);
 
   var startMode = function name() {
     gameManager.activeMode = 1;
