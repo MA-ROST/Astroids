@@ -28,7 +28,7 @@ class Astroid extends Actor {
     this.color = "white";
 
     this.hasBeenBroken = false;
-    this.immunity = 40;
+    this.immunity = 20;
   }
 
   hasCollided(outcome) {
@@ -68,7 +68,8 @@ class Astroid extends Actor {
   draw() {
     push();
     translate(this.position.x, this.position.y);
-    fill(this.color);
+    stroke(this.color);
+    noFill();
     beginShape();
     for (let i = 0; i < 10; i++) {
       var angle = map(i, 0, this.total, 0, TWO_PI);
@@ -78,6 +79,7 @@ class Astroid extends Actor {
       vertex(x, y);
     }
     endShape(CLOSE);
+    noStroke();  
     fill("green");
     text(this.immunity, 0,0);
     pop();

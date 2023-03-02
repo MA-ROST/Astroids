@@ -8,11 +8,11 @@ class AstroidManager {
   }
 
   addAstroid(manager, size, position, angle) {
-    if(position === undefined){
+    if (position === undefined) {
       position = createVector(random(0, width), random(0, height));
     }
-    if (angle === undefined){
-      angle = random(10) ;
+    if (angle === undefined) {
+      angle = random(10);
     }
     this.astroids.push(new Astroid(manager, size, position, angle));
   }
@@ -30,6 +30,23 @@ class AstroidManager {
 
     this.astroids = this.astroids.filter((astroid) => astroid.alive() == false);
     this.astroids = this.astroids.filter((astroid) => astroid.size > 0);
+  }
+
+  checkIfPlayerHitsAstroids(player) {
+    for (let astroid of this.astroids) {
+      var d = dist(
+        player.position.x,
+        player.position.y,
+        astroid.position.x,
+        astroid.position.y
+      );
+
+      if (d <= astroid.radius + 10) {
+        console.log("HIT");
+        player.hasCollided();
+        astroid.break();
+      }
+    }
   }
 
   draw() {
