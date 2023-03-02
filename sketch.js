@@ -30,11 +30,11 @@ function draw() {
   }
 
   if (keyIsDown(LEFT_ARROW)) {
-    ship.setAngle(-0.05);
+    ship.turnShip(-0.05);
   }
 
   if (keyIsDown(RIGHT_ARROW)) {
-    ship.setAngle(0.05);
+    ship.turnShip(0.05);
   }
 
   //enemy.display();

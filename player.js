@@ -1,6 +1,6 @@
 class Player extends Actor {
   constructor() {
-    super(createVector(width/2, height/2), 2);
+    super(createVector(width/2, height/2), 3);
     this.collide = new Rect(0, 0, 20, 40);
     this.lives = 3;
 
@@ -18,7 +18,7 @@ class Player extends Actor {
     }
   }
 
-  setAngle(key) {
+  turnShip(key) {
     this.angle += key;
   }
 
@@ -28,16 +28,28 @@ class Player extends Actor {
     this.acceleration.add(thrust);
   }
 
+  update(){
+    this.velocity.limit(this.thrustValue);
+    // Acceleration changes the mover's velocity.
+    this.velocity.add(this.acceleration);
+    // Velocity changes the mover's position.
+    this.position.add(this.velocity);
+    this.acceleration.set(0, 0);
+
+    this.loopEdge();
+  }
+
   shoot(){
     this.bullet.fire();
   }
 
   engineOff() {
-    if (this.velocity.mag() < 0.01) {
+    if (this.velocity.mag() < 0.05) {
       // Stops infinite numbers
+      this.acceleration.set(0, 0);
       this.velocity.set(0);
     } else {
-      this.velocity.lerp(0, 0, 0, 0.02);
+      this.velocity.lerp(0, 0, 0, 0.03);
     }
   }
 
@@ -57,16 +69,14 @@ class Player extends Actor {
 
     this.angle = random(0, 359);
 
-    this.velocity.x = 0;
-    this.velocity.y = 0;
+    this.velocity.set(0);
   }
 
   respawn() {
     this.position = createVector(width / 2, height / 2);
     this.angle = 0;
 
-    this.velocity.x = 0;
-    this.velocity.y = 0;
+    this.velocity.set(0);
   }
 
   drawShip(){
@@ -75,8 +85,19 @@ class Player extends Actor {
       else fill("white");
       translate(this.position.x, this.position.y);
       rotate(this.angle);
-      triangle(0, -20, 10, 15, -10, 15);
+      triangle(0, -20, 10, 20, -10, 20);
     pop();
+  }
+
+  drawDebugText(){
+    text(this.angle, 10, 20);
+    text(this.acceleration, 10, 40);
+    text(this.velocity, 10, 60);
+    text(this.position, 10, 80);
+    text(this.isHit, 10, 100);
+    text(this.test, 10, 120);
+    text(this.lives, 10, height - 20);
+    text(this.tip, 10, 140);
   }
 
   display() {
@@ -89,6 +110,7 @@ class Player extends Actor {
     else {
       this.bullet.update();
     }
+
     this.collide.updatePosition(
       this.position.x - this.collide.w / 2,
       this.position.y - this.collide.h / 2
@@ -102,20 +124,8 @@ class Player extends Actor {
       let that = p5.Vector.add(tip, this.position);
       let those = that.rotate(this.angle);
       //circle(tip.x, tip.y, 10);
-
-      
-
     pop();
 
-    text(this.angle, 10, 20);
-    text(this.acceleration, 10, 40);
-    text(this.velocity, 10, 60);
-    text(this.position, 10, 80);
-    text(this.isHit, 10, 100);
-    text(this.test, 10, 120);
-    text(this.lives, 10, height - 20);
-    text(this.tip, 10, 140);
+    this.drawDebugText();
   }
-
-  
 }
