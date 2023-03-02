@@ -9,7 +9,9 @@ class AstroidManager {
 
   addAstroid(manager, size, position, angle) {
     if (position === undefined) {
-      position = createVector(random(0, width), random(0, height));
+      position = p5.Vector.random2D();
+      position.x *= width + width/3;
+      position.y *= height + height/3;
     }
     if (angle === undefined) {
       angle = random(10);
