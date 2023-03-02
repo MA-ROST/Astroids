@@ -1,6 +1,6 @@
 class Astroid extends Actor {
   constructor(thrustValue, size, manager) {
-    super(createVector(0, random(100, height - 100)), thrustValue);
+    super(createVector(random(0, width), random(0, height)), thrustValue);
 
     // 3 = large
     // 2 = med
@@ -8,6 +8,14 @@ class Astroid extends Actor {
     this.size = size; 
     this.radius = this.size * 10;
     this.manager = manager;
+
+    let speed = 1* (size/1.5);
+
+    this.angle = random(10);
+
+    let thrust = createVector(0,1);
+    thrust.setHeading(this.angle - HALF_PI);
+    this.velocity.add(thrust);
 
     this.total = floor(random(5,15));
     this.offset = [];
@@ -34,12 +42,12 @@ class Astroid extends Actor {
 
   update(){
     this.position.add(this.velocity);
+    this.loopEdge(this.radius+10);
   }
 
   draw() {
-    //circle(this.position.x, this.position.y, this.radius);
     push();
-      translate(width/2, this.position.y);
+      translate(this.position.x, this.position.y);
       beginShape();
       for (let i = 0; i < 10; i++) {
         var angle = map (i, 0, this.total, 0, TWO_PI);
