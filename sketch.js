@@ -5,18 +5,28 @@ let bulletManager;
 let astroidManager;
 let gameManager;
 
+let mode = 0;
 let startBtn;
 let resumeBtn;
 let restartBtn;
+
 let score = 0;
 let canEarnPoints = true;
 
 let thrustValue = 2;
 
-let mode = 0;
-
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(600, 600);
+
+  gameManager = new GameManager(startBtn);
+  bulletManager = new BulletManager();
+  astroidManager = new AstroidManager();
+  astroidManager.addAstroids(10, astroidManager, 3);
+
+  //let enemyLocat = createVector(0, height / 2);
+
+  player = new Player(bulletManager);
+  //enemy = new Saucer(enemyLocat, 2.5);
 
   startBtn = createButton("START!");
   startBtn.position(width / 2 - 30, height - 100);
@@ -24,40 +34,27 @@ function setup() {
   resumeBtn.position(width / 2 - 30, height - 100);
   resumeBtn.hide();
 
-  gameManager = new GameManager(startBtn);
-  bulletManager = new BulletManager();
-  astroidManager = new AstroidManager();
-  astroidManager.addAstroids(10, astroidManager, 3);
-
-  let enemyLocat = createVector(0, height / 2);
-
-  player = new Player(bulletManager);
-  //enemy = new Saucer(enemyLocat, 2.5);
-
   var startToPlay = function name() {
     mode = 1;
     startBtn.hide();
   };
+  startBtn.mousePressed(startToPlay);
+
   var freezeToPlay = function name() {
     mode = 1;
     resumeBtn.hide();
   };
-  startBtn.mousePressed(startToPlay);
   resumeBtn.mousePressed(freezeToPlay);
 }
 
 function draw() {
   background(0);
 
-  //enemy.display();
-  //enemy.update();
-
-  //ship.isCollide(enemy);
   if (mode == 0) {
     startMode();
   } else if (mode == 1) {
     playMode();
-  } else if (mode == 2){
+  } else if (mode == 2) {
     freezeMode();
   } else {
     finishMode(false);
@@ -86,7 +83,7 @@ function keyPressed() {
   }
 }
 
-function startMode(){
+function startMode() {
   push();
 
   fill("white");
@@ -100,6 +97,10 @@ function startMode(){
 }
 
 function playMode() {
+  if(!player.alive()){
+    mode = 3;
+    finishMode(false);
+  }
   score += bulletManager.checkIfHitAsteroid(
     astroidManager.astroids,
     canEarnPoints
@@ -162,15 +163,15 @@ function freezeMode(context) {
   pop();
 }
 
-function finishMode(isWin){
+function finishMode(isWin) {
   astroidManager.draw();
   bulletManager.draw();
   player.display();
   //restartBtn.show();
 
   let state = "WIN!";
-  if (!isWin){
-    state = "LOST."
+  if (!isWin) {
+    state = "LOST.";
   }
 
   push();
@@ -182,7 +183,10 @@ function finishMode(isWin){
   strokeWeight(4);
   textSize(24);
   textAlign(CENTER);
+  
   text("YOU " + state, width / 2, 200);
+  textSize(12);
+  text("Score: " + score, width / 2, 250);
 
   pop();
 }
