@@ -1,6 +1,6 @@
 class Player extends Actor {
   constructor(bulletManager) {
-    super(createVector(width/2, height/2), 3);
+    super(createVector(width / 2, height / 2), 3);
     this.collide = new Rect(0, 0, 20, 40);
     this.lives = 3;
 
@@ -9,10 +9,8 @@ class Player extends Actor {
     this.bulletPosition = createVector(0, -30);
   }
 
-  hasCollided(outcome) {
-    this.isHit = outcome;
-
-    if (this.isHit && !this.increment) {
+  hasCollided() {
+    if (!this.increment) {
       this.lives -= 1;
       this.increment = true;
       this.respawn();
@@ -39,7 +37,7 @@ class Player extends Actor {
     }
   }
 
-  update(){
+  update() {
     this.velocity.limit(this.thrustLimit);
     // Acceleration changes the mover's velocity.
     this.velocity.add(this.acceleration);
@@ -47,12 +45,16 @@ class Player extends Actor {
     this.position.add(this.velocity);
     this.acceleration.set(0, 0);
 
-    this.loopEdge();
+    this.loopEdge(30);
   }
 
-  shoot(){
-    let forwardVector = p5.Vector.fromAngle(this.angle - PI / 2, 30)
-    this.bulletManager.addBullet(this.position, forwardVector, "red", 80);
+  shoot() {
+    let forwardVector = p5.Vector.fromAngle(this.angle - PI / 2, 30);
+    this.bulletManager.addBullet(this.position, forwardVector, "red", 80, true);
+
+    let thrust = createVector(0, 0.1);
+    thrust.setHeading(this.angle - HALF_PI);
+    this.acceleration.sub(thrust);
   }
 
   engineOff() {
@@ -87,57 +89,27 @@ class Player extends Actor {
   respawn() {
     this.position = createVector(width / 2, height / 2);
     this.angle = 0;
+    this.isHit = false;
+    this.increment = false;
 
     this.velocity.set(0);
   }
 
-  drawShip(){
+  drawShip() {
     push();
-      if (this.isHit == true) fill("red");
-      else fill("white");
-      translate(this.position.x, this.position.y);
-      rotate(this.angle);
-      triangle(0, -20, 10, 20, -10, 20);
+    noFill();
+    if (this.isHit == true) stroke("red");
+    else stroke("white");
+    translate(this.position.x, this.position.y);
+    rotate(this.angle);
+    triangle(0, -20, 10, 20, -10, 20);
     pop();
   }
 
-  drawDebugText(){
-    text(this.angle, 10, 20);
-    text(this.acceleration, 10, 40);
-    text(this.velocity, 10, 60);
-    text(this.position, 10, 80);
-    text(this.isHit, 10, 100);
-    text(this.test, 10, 120);
-    text(this.lives, 10, height - 20);
-    text(this.tip, 10, 140);
-  }
+  drawDebugText() {}
 
   display() {
     this.drawShip();
-    
-    // this.bullet.display();
-    // if(!this.bullet.isShot){
-    //   this.bullet.updatePosition(this.position.x,this.position.y,this.angle);
-    // }
-    // else {
-    //   this.bullet.update();
-    // }
-
-    this.collide.updatePosition(
-      this.position.x - this.collide.w / 2,
-      this.position.y - this.collide.h / 2
-    );
-
-    // const tip = createVector(0, -30);
-
-    // push();
-    //   translate(this.position.x, this.position.y);
-    //   rotate(this.angle);
-    //   let that = p5.Vector.add(tip, this.position);
-    //   let those = that.rotate(this.angle);
-    //   //circle(tip.x, tip.y, 10);
-    // pop();
-
     this.drawDebugText();
   }
 }
