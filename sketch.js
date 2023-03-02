@@ -42,7 +42,6 @@ function draw() {
 
   //ship.isCollide(enemy);
 
-
   for (let i = 0; i < astroids.length; i++) {
     astroids[i].display();
   }
@@ -51,5 +50,9 @@ function draw() {
 function keyReleased() {
   if (keyCode === UP_ARROW) {
     ship.engineOff();
+  }
+}
+  if (keyCode == DOWN_ARROW) {
+    ship.hyperspace();
   }
 }

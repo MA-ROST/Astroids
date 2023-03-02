@@ -45,7 +45,7 @@ class Player extends Actor {
     }
   }
 
-  randomLocation() {
+  hyperspace() {
     this.position = createVector(
       random(100, width - 100),
       random(100, height - 100)
@@ -89,6 +89,8 @@ class Player extends Actor {
     let those = that.rotate(this.angle);
     circle(tip.x, tip.y, 10);
 
+      
+
     pop();
 
     text(this.angle, 10, 20);
@@ -100,4 +102,6 @@ class Player extends Actor {
     text(this.lives, 10, height - 20);
     text(this.tip, 10, 140);
   }
+
+  
 }
