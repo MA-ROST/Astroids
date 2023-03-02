@@ -1,6 +1,8 @@
 class Saucer extends Actor {
-  constructor(position, speedd) {
+  constructor(position, speedd, bulletManager) {
     super(position, speedd);
+
+    this.bulletManager = bulletManager;
   }
 
   update() {

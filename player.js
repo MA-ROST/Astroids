@@ -1,11 +1,12 @@
 class Player extends Actor {
-  constructor() {
+  constructor(bulletManager) {
     super(createVector(width/2, height/2), 3);
     this.collide = new Rect(0, 0, 20, 40);
     this.lives = 3;
 
-    let bleh = createVector(0, -30);
-    this.bullet = new Bullet(this.position.copy(), 2, this.angle);
+    this.bulletManager = bulletManager;
+
+    this.bulletPosition = createVector(0, -30);
   }
 
   hasCollided(outcome) {
@@ -40,7 +41,8 @@ class Player extends Actor {
   }
 
   shoot(){
-    this.bullet.fire();
+    let forwardVector = p5.Vector.fromAngle(this.angle - PI / 2, 30)
+    this.bulletManager.addBullet(this.position, forwardVector, "red", 80);
   }
 
   engineOff() {
@@ -103,28 +105,28 @@ class Player extends Actor {
   display() {
     this.drawShip();
     
-    this.bullet.display();
-    if(!this.bullet.isShot){
-      this.bullet.updatePosition(this.position.x,this.position.y,this.angle);
-    }
-    else {
-      this.bullet.update();
-    }
+    // this.bullet.display();
+    // if(!this.bullet.isShot){
+    //   this.bullet.updatePosition(this.position.x,this.position.y,this.angle);
+    // }
+    // else {
+    //   this.bullet.update();
+    // }
 
     this.collide.updatePosition(
       this.position.x - this.collide.w / 2,
       this.position.y - this.collide.h / 2
     );
 
-    const tip = createVector(0, -30);
+    // const tip = createVector(0, -30);
 
-    push();
-      translate(this.position.x, this.position.y);
-      rotate(this.angle);
-      let that = p5.Vector.add(tip, this.position);
-      let those = that.rotate(this.angle);
-      //circle(tip.x, tip.y, 10);
-    pop();
+    // push();
+    //   translate(this.position.x, this.position.y);
+    //   rotate(this.angle);
+    //   let that = p5.Vector.add(tip, this.position);
+    //   let those = that.rotate(this.angle);
+    //   //circle(tip.x, tip.y, 10);
+    // pop();
 
     this.drawDebugText();
   }

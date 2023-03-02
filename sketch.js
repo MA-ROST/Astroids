@@ -2,14 +2,20 @@ let ship;
 let enemy;
 let astroids = [];
 
+let bulletManager;
+let asteroidManager;
+
 let thrustValue = 2;
 
 function setup() {
   createCanvas(400, 400);
 
+  bulletManager = new BulletManager();
+  asteroidManager = new AstroidManager();
+
   let enemyLocat = createVector(0, height / 2);
 
-  ship = new Player();
+  ship = new Player(bulletManager);
   //enemy = new Saucer(enemyLocat, 2.5);
   for (let i = 0; i < 10; i++) {
     astroids.push(new Astroid(2, 3));
