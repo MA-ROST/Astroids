@@ -17,10 +17,6 @@ function setup() {
   ship = new Player(bulletManager);
   //enemy = new Saucer(enemyLocat, 2.5);
   astroidManager.addAstroids(10, astroidManager);
-
-  for (let i = 0; i < 10; i++) {
-    astroidManager.addAstroid();
-  }
 }
 
 function draw() {
