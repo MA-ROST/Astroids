@@ -3,9 +3,11 @@ class BulletManager {
     this.bullets = [];
   }
 
-  addBullet(position, velocity, color, ttl) {
+  addBullet(position, velocity, color, ttl, isFromPlayer) {
     console.log("adding bullet");
-    this.bullets.push(new Bullet(position.copy(), velocity.copy(), color, ttl));
+    this.bullets.push(
+      new Bullet(position.copy(), velocity.copy(), color, ttl, isFromPlayer)
+    );
   }
 
   update() {
@@ -41,7 +43,7 @@ class BulletManager {
         }
       }
     }
-    this.bullets = this.bullets.filter((bullet) => bullet.isHit==false);
+    this.bullets = this.bullets.filter((bullet) => bullet.isHit == false);
     return numDestroyed;
   }
 }

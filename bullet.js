@@ -7,11 +7,11 @@ class Bullet extends Actor {
     this.color = color;
     this.ttl = ttl;
     this.isHit = false;
+    this.isFromPlayer = false;
   }
 
   update() {
     this.ttl = max(this.ttl - 1, 0);
-    console.log(this.position);
     super.update();
   }
 
