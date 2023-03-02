@@ -6,6 +6,8 @@ let astroidManager;
 let gameManager;
 
 let startBtn;
+let score = 0;
+let canEarnPoints = true;
 
 let thrustValue = 2;
 
@@ -39,7 +41,7 @@ function draw() {
   //enemy.update();
 
   //ship.isCollide(enemy);
-  bulletManager.checkIfHitAsteroid(astroidManager, astroidManager.astroids);
+  score += bulletManager.checkIfHitAsteroid(astroidManager.astroids, canEarnPoints);
 
   gameManager.draw();
 
@@ -64,6 +66,8 @@ function draw() {
   if (keyIsDown(RIGHT_ARROW)) {
     ship.turnShip(0.05);
   }
+
+  text(score, 10, 200);
 }
 
 function keyReleased() {

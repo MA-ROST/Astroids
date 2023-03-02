@@ -22,21 +22,26 @@ class BulletManager {
     }
   }
 
-  checkIfHitAsteroid(astroidManager, astroids) {
+  checkIfHitAsteroid(astroids, canBeHit) {
+    let numDestroyed = 0;
     for (const bullet of this.bullets) {
       for (const astroid of astroids) {
         var d = dist(
           bullet.position.x,
           bullet.position.y,
-          astroid.position.y,
-          astroid.position.x
+          astroid.position.x,
+          astroid.position.y
         );
 
-        if (d < astroid.radius - 5) {
+        if (d < astroid.radius - 2 && !bullet.isHit) {
           console.log("HIT");
           astroid.break();
+          numDestroyed += astroid.worth;
+          bullet.isHit = true;
         }
       }
     }
+    this.bullets = this.bullets.filter((bullet) => bullet.isHit==false);
+    return numDestroyed;
   }
 }

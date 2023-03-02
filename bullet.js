@@ -3,26 +3,28 @@ class Bullet extends Actor {
     super(position, 3);
 
     this.acceleration.set(velocity);
-    
+
     this.color = color;
     this.ttl = ttl;
+    this.isHit = false;
   }
 
-  update(){
+  update() {
     this.ttl = max(this.ttl - 1, 0);
+    console.log(this.position);
     super.update();
   }
 
-  alive(){
+  alive() {
     return this.ttl != 0;
   }
 
-  draw(){
+  draw() {
     push();
-      fill(this.color);
-      stroke(this.color);
-      strokeWeight(4);
-      point(this.position.x, this.position.y);
+    fill(this.color);
+    stroke(this.color);
+    strokeWeight(4);
+    point(this.position.x, this.position.y);
     pop();
   }
 }
