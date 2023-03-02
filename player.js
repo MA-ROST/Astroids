@@ -65,16 +65,18 @@ class Player extends Actor {
     this.velocity.y = 0;
   }
 
-  display() {
+  drawShip(){
     push();
-    if (this.isHit == true) fill("red");
-    else fill("white");
-    translate(this.position.x, this.position.y);
-    rotate(this.angle);
-    triangle(0, -20, 10, 15, -10, 15);
-
+      if (this.isHit == true) fill("red");
+      else fill("white");
+      translate(this.position.x, this.position.y);
+      rotate(this.angle);
+      triangle(0, -20, 10, 15, -10, 15);
     pop();
+  }
 
+  display() {
+    this.drawShip();
     this.collide.updatePosition(
       this.position.x - this.collide.w / 2,
       this.position.y - this.collide.h / 2
@@ -83,11 +85,11 @@ class Player extends Actor {
     const tip = createVector(0, -30);
 
     push();
-    translate(this.position.x, this.position.y);
-    rotate(this.angle);
-    let that = p5.Vector.add(tip, this.position);
-    let those = that.rotate(this.angle);
-    circle(tip.x, tip.y, 10);
+      translate(this.position.x, this.position.y);
+      rotate(this.angle);
+      let that = p5.Vector.add(tip, this.position);
+      let those = that.rotate(this.angle);
+      //circle(tip.x, tip.y, 10);
 
       
 
