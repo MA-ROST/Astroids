@@ -76,6 +76,22 @@ class Actor {
     }
   }
 
+  loopEdge(size) {
+    if (this.position.x - size > width) {
+      this.position.x = 0 - size;
+    }
+    if (this.position.x + size < 0) {
+      this.position.x = width + size;
+    }
+
+    if (this.position.y - size > height) {
+      this.position.y = 0 - size;
+    }
+    if (this.position.y + 30 < 0) {
+      this.position.y = height + size;
+    }
+  }
+
   display() {
     circle(this.position.x, this.position.y, 10);
   }
