@@ -32,7 +32,11 @@ class Astroid extends Actor {
     }
   }
 
-  display() {
+  update(){
+    this.position.add(this.velocity);
+  }
+
+  draw() {
     //circle(this.position.x, this.position.y, this.radius);
     push();
       translate(width/2, this.position.y);
