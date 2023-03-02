@@ -28,6 +28,10 @@ class Player extends Actor {
     this.acceleration.add(thrust);
   }
 
+  shoot(){
+    this.bullet.fire();
+  }
+
   engineOff() {
     if (this.velocity.mag() < 0.01) {
       // Stops infinite numbers
@@ -77,6 +81,14 @@ class Player extends Actor {
 
   display() {
     this.drawShip();
+    
+    this.bullet.display();
+    if(!this.bullet.isShot){
+      this.bullet.updatePosition(this.position.x,this.position.y,this.angle);
+    }
+    else {
+      this.bullet.update();
+    }
     this.collide.updatePosition(
       this.position.x - this.collide.w / 2,
       this.position.y - this.collide.h / 2

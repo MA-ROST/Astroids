@@ -52,6 +52,12 @@ function keyReleased() {
     ship.engineOff();
   }
 }
+
+function keyPressed() {
+  if (keyCode == 32) {
+    ship.shoot();
+  }
+
   if (keyCode == DOWN_ARROW) {
     ship.hyperspace();
   }
