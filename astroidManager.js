@@ -8,6 +8,12 @@ class AstroidManager {
   }
 
   addAstroid(manager, size, position, angle) {
+    if(position === undefined){
+      position = createVector(random(0, width), random(0, height));
+    }
+    if (angle === undefined){
+      angle = random(10) ;
+    }
     this.astroids.push(new Astroid(manager, size, position, angle));
   }
 

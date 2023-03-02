@@ -1,6 +1,6 @@
 class Astroid extends Actor {
   constructor(manager, size, position, angle) {
-    super(createVector(random(0, width), random(0, height)), 2);
+    super(position, 2);
 
     // 3 = large
     // 2 = med
@@ -9,8 +9,11 @@ class Astroid extends Actor {
     this.radius = this.size * 10;
     this.manager = manager;
 
-    let speed = 1 * (size / 1.5);
-    this.angle = random(10);
+    const points = [100,50,20];
+    this.worth = points[max(this.size-1, 0)]
+
+    let speed = 1 * (size / 1.5);   
+    this.angle = angle;
 
     let thrust = createVector(0, 1);
     thrust.setHeading(this.angle - HALF_PI);
@@ -25,6 +28,7 @@ class Astroid extends Actor {
     this.color = "white";
 
     this.hasBeenBroken = false;
+    this.immunity = 40;
   }
 
   hasCollided(outcome) {
@@ -43,8 +47,9 @@ class Astroid extends Actor {
   }
 
   break() {
-    if (!this.hasBeenBroken) {
-      this.manager.addAstroids(2, this.manager, this.size - 1);
+    if (!this.hasBeenBroken && this.immunity <= 0) {
+      this.manager.addAstroid(this.manager, this.size - 1, this.position.copy());
+      this.manager.addAstroid(this.manager, this.size - 1, this.position.copy());
       this.hasBeenBroken = true;
       this.color = "red";
     }
@@ -57,6 +62,7 @@ class Astroid extends Actor {
   update() {
     this.position.add(this.velocity);
     this.loopEdge(this.radius + 10);
+    this.immunity = max(this.immunity - 1, 0);
   }
 
   draw() {
@@ -72,7 +78,8 @@ class Astroid extends Actor {
       vertex(x, y);
     }
     endShape(CLOSE);
-
+    fill("green");
+    text(this.immunity, 0,0);
     pop();
   }
 }
