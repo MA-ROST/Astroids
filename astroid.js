@@ -6,6 +6,7 @@ class Astroid extends Actor {
     // 2 = med
     // 1 = small
     this.size = size; 
+    this.radius = this.size * 10;
     this.manager = manager;
   }
 
@@ -26,6 +27,18 @@ class Astroid extends Actor {
   }
 
   display() {
-    circle(this.position.x, this.position.y, 10 * this.size);
+    //circle(this.position.x, this.position.y, this.radius);
+    push();
+      translate(this.position.x, this.position.y);
+      beginShape();
+      for (let i = 0; i < 10; i++) {
+        var angle = map (i, 0, 10, 0, TWO_PI);
+        var x = this.radius * cos(angle);
+        var y = this.radius * sin(angle);
+        vertex(x,y);
+      }
+      endShape(CLOSE);
+
+    pop();
   }
 }
