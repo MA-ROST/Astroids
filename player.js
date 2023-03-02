@@ -9,6 +9,10 @@ class Player extends Actor {
     this.bulletPosition = createVector(0, -30);
   }
 
+  alive() {
+    return this.lives > 0;
+  }
+
   hasCollided() {
     if (!this.increment) {
       this.lives -= 1;
