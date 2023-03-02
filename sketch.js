@@ -39,6 +39,9 @@ function draw() {
   //enemy.update();
 
   //ship.isCollide(enemy);
+  bulletManager.checkIfHitAsteroid(astroidManager, astroidManager.astroids);
+
+  gameManager.draw();
 
   astroidManager.draw();
   astroidManager.update();
