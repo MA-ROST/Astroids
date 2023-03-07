@@ -30,6 +30,7 @@ class GameManager {
   }
 
   checkPlayerState(){
+    //console.log(this.player.lives);
     return this.player.alive();
   }
 
@@ -89,5 +90,12 @@ class GameManager {
       this.player.turnShip(0.05);
     }
   }
+
+  restartGame(){
+    this.astroidManager.clearAstroids();
+    this.astroidManager.addAstroids(10, this.astroidManager, 3);
+    this.player.lives = 3;
+  }
+
   }
 }

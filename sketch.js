@@ -12,6 +12,7 @@ let restartBtn;
 
 let score = 0;
 let canEarnPoints = true;
+let winMode = false;
 
 let thrustValue = 2;
 
@@ -30,6 +31,10 @@ function setup() {
   resumeBtn.position(width / 2 - 30, height - 100);
   resumeBtn.hide();
 
+  restartBtn = createButton("RESTART!");
+  restartBtn.position(width / 2 - 30, height - 100);
+  restartBtn.hide();
+
   var startToPlay = function name() {
     mode = 1;
     startBtn.hide();
@@ -41,6 +46,14 @@ function setup() {
     resumeBtn.hide();
   };
   resumeBtn.mousePressed(freezeToPlay);
+
+  var restartPlay = function name() {
+    mode = 1;
+    winMode = false;
+    gameManager.restartGame();
+    restartBtn.hide();
+  };
+  restartBtn.mousePressed(restartPlay);
 }
 
 function draw() {
@@ -53,7 +66,7 @@ function draw() {
   } else if (mode == 2) {
     freezeMode();
   } else {
-    finishMode(false);
+    finishMode();
   }
   fill("white");
   text("MODE = " + mode, 10, 60);
@@ -85,25 +98,20 @@ function startMode() {
 }
 
 function playMode() {
-  if(!gameManager.checkPlayerState()){
+  if(!gameManager.checkPlayerState() || gameManager.checkIfAstroidManagerEmpty()){
+    if(gameManager.checkIfAstroidManagerEmpty()){
+      winMode = true;
+    }
     mode = 3;
-    finishMode(false);
+    finishMode();
   }
 
-  if (gameManager.checkIfAstroidManagerEmpty()) {
-    mode = 3;
-    finishMode(true);
-  }
-
-  gameManager.play();
-
+  score += gameManager.play();
   gameManager.drawPlayText(score);
 }
 
 function freezeMode(context) {
-  astroidManager.draw();
-  bulletManager.draw();
-  player.display();
+  gameManager.pause();
   resumeBtn.show();
 
   push();
@@ -120,14 +128,12 @@ function freezeMode(context) {
   pop();
 }
 
-function finishMode(isWin) {
-  astroidManager.draw();
-  bulletManager.draw();
-  player.display();
-  //restartBtn.show();
+function finishMode() {
+  gameManager.pause();
+  restartBtn.show();
 
   let state = "WIN!";
-  if (!isWin) {
+  if (!winMode) {
     state = "LOST.";
   }
 
