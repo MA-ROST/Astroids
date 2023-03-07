@@ -18,18 +18,14 @@ let thrustValue = 2;
 function setup() {
   createCanvas(600, 600);
 
-  gameManager = new GameManager(startBtn);
-  bulletManager = new BulletManager();
-  astroidManager = new AstroidManager();
-  astroidManager.addAstroids(10, astroidManager, 3);
+  gameManager = new GameManager();
 
   //let enemyLocat = createVector(0, height / 2);
-
-  player = new Player(bulletManager);
   //enemy = new Saucer(enemyLocat, 2.5);
 
   startBtn = createButton("START!");
   startBtn.position(width / 2 - 30, height - 100);
+
   resumeBtn = createButton("RESUME!");
   resumeBtn.position(width / 2 - 30, height - 100);
   resumeBtn.hide();
@@ -64,23 +60,15 @@ function draw() {
 }
 
 function keyReleased() {
-  if (keyCode === UP_ARROW) {
-    player.engineOff();
-  }
+  gameManager.keyReleased(keyCode);
 }
 
 function keyPressed() {
-  if (keyCode == 32) {
-    player.shoot();
-  }
-
   if (keyCode == 69) {
     mode = 2;
   }
 
-  if (keyCode == DOWN_ARROW) {
-    player.hyperspace();
-  }
+  gameManager.keyPress(keyCode);
 }
 
 function startMode() {
@@ -97,50 +85,19 @@ function startMode() {
 }
 
 function playMode() {
-  if(!player.alive()){
+  if(!gameManager.checkPlayerState()){
     mode = 3;
     finishMode(false);
   }
-  score += bulletManager.checkIfHitAsteroid(
-    astroidManager.astroids,
-    canEarnPoints
-  );
 
-  astroidManager.checkIfPlayerHitsAstroids(player);
-
-  if (astroidManager.isEmpty()) {
+  if (gameManager.checkIfAstroidManagerEmpty()) {
     mode = 3;
     finishMode(true);
   }
 
-  astroidManager.draw();
-  astroidManager.update();
+  gameManager.play();
 
-  bulletManager.draw();
-  bulletManager.update();
-
-  player.display();
-  player.update();
-
-  if (keyIsDown(UP_ARROW)) {
-    player.thrust(1);
-  } else {
-    player.thrust(0);
-  }
-
-  if (keyIsDown(LEFT_ARROW)) {
-    player.turnShip(-0.05);
-  }
-  if (keyIsDown(RIGHT_ARROW)) {
-    player.turnShip(0.05);
-  }
-  push();
-  fill("grey");
-  stroke("black");
-  strokeWeight(4);
-  text("LIVES: " + player.lives, 10, height - 20);
-  text("SCORE: " + score, 200, height - 20);
-  pop();
+  gameManager.drawPlayText(score);
 }
 
 function freezeMode(context) {
