@@ -3,8 +3,15 @@ class AstroidManager {
     this.astroids = [];
   }
 
+  clearAstroids(){
+    this.astroids.length = 0;
+  }
+
   isEmpty() {
-    return this.astroids.length.isEmpty;
+    if(this.astroids.length != 0){
+      return false;
+    }
+    return true;
   }
 
   addAstroid(manager, size, position, angle) {
@@ -44,7 +51,7 @@ class AstroidManager {
       );
 
       if (d <= astroid.radius + 10) {
-        console.log("HIT");
+        //console.log("HIT");
         player.hasCollided();
         astroid.break();
       }

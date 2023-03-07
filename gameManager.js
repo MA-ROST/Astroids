@@ -21,6 +21,15 @@ class GameManager {
     if (keyCode == DOWN_ARROW) {
       this.player.hyperspace();
     }
+
+    if(keyCode == 49){
+      console.log("DAA");
+      this.destroyAllAstroids();
+    }
+    if(keyCode == 50){
+      console.log("KP");
+      this.killPlayer();
+    }
   }
 
   keyReleased(keyCode){
@@ -97,5 +106,10 @@ class GameManager {
     this.player.lives = 3;
   }
 
+  destroyAllAstroids(){
+    this.astroidManager.clearAstroids();
+  }
+  killPlayer(){
+    this.player.lives = 0;
   }
 }
