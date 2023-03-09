@@ -84,11 +84,12 @@ class Saucer extends Actor {
       this.position,
       forwardVector,
       "red",
-      400,
+      175,
       false
     );
 
     this.hasShot = true;
+    this.noiseScale += 0.005;
   }
 
   deSpawn() {
