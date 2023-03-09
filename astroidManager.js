@@ -1,5 +1,8 @@
 class AstroidManager {
-  constructor() {
+  constructor(destroy1, destroy2) {
+    this.destroy1 = destroy1;
+    this.destroy2 = destroy2;
+
     this.astroids = [];
   }
 
@@ -41,7 +44,7 @@ class AstroidManager {
     this.astroids = this.astroids.filter((astroid) => astroid.size > 0);
   }
 
-  checkIfActorHitsAstroids(actor) {
+  checkIfActorHitsAstroids(actor, isPlayer, shootingMode) {
     for (let astroid of this.astroids) {
       var d = dist(
         actor.position.x,
@@ -50,10 +53,19 @@ class AstroidManager {
         astroid.position.y
       );
 
-      if (d <= astroid.radius + actor.radius / 2) {
+      if (d <= astroid.radius + actor.radius / 2 && shootingMode) {
+        this.determineSFX(isPlayer);
         actor.hasCollided();
         astroid.break();
       }
+    }
+  }
+
+  determineSFX(isPlayer) {
+    if (!isPlayer) {
+      this.destroy1.play();
+    } else if (isPlayer) {
+      this.destroy2.play();
     }
   }
 

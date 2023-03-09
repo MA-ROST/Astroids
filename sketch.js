@@ -14,10 +14,29 @@ let score = 0;
 let canEarnPoints = true;
 let winMode = false;
 
+let musicS;
+let destroy1S;
+let destroy2S;
+let shootS;
+
+function preload() {
+	soundFormats("wav", "mp3");
+	musicS = loadSound("sound/area12.mp3");
+	destroy1S = loadSound("sound/SI_DestroyMini.wav");
+	destroy2S = loadSound("sound/SI_Destroy2.wav");
+	shootS = loadSound("sound/SI_Shoot.wav");
+
+	destroy1S.setVolume(0.5);
+	musicS.setVolume(0.15);
+
+	destroy1S.playMode("restart");
+	destroy2S.playMode("restart");
+	shootS.playMode("restart");
+}
+
 function setup() {
   createCanvas(600, 600);
 
-  gameManager = new GameManager();
 
   startBtn = createButton("START!");
   startBtn.position(width / 2 - 30, height - 100);
@@ -49,6 +68,7 @@ function setup() {
     restartBtn.hide();
   };
   restartBtn.mousePressed(restartPlay);
+	gameManager = new GameManager(destroy1S, destroy2S, shootS);
 }
 
 function draw() {
