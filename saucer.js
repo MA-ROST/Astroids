@@ -78,7 +78,7 @@ class Saucer extends Actor {
     );
 
     let aNoise = noise(this.noiseScale) * a;
-    let forwardVector = p5.Vector.fromAngle(a, 30);
+    let forwardVector = p5.Vector.fromAngle(aNoise, 30);
 
     this.bulletManager.addBullet(
       this.position,

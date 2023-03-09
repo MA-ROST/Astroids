@@ -35,143 +35,147 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(600, 600);
+	createCanvas(600, 600);
 
-
-  startBtn = createButton("START!");
-  startBtn.position(width / 2 - 30, height - 100);
-
-  resumeBtn = createButton("RESUME!");
-  resumeBtn.position(width / 2 - 30, height - 100);
-  resumeBtn.hide();
-
-  restartBtn = createButton("RESTART!");
-  restartBtn.position(width / 2 - 30, height - 100);
-  restartBtn.hide();
-
-  var startToPlay = function name() {
-    mode = 1;
-    startBtn.hide();
-  };
-  startBtn.mousePressed(startToPlay);
-
-  var freezeToPlay = function name() {
-    mode = 1;
-    resumeBtn.hide();
-  };
-  resumeBtn.mousePressed(freezeToPlay);
-
-  var restartPlay = function name() {
-    mode = 1;
-    winMode = false;
-    gameManager.restartGame();
-    restartBtn.hide();
-  };
-  restartBtn.mousePressed(restartPlay);
 	gameManager = new GameManager(destroy1S, destroy2S, shootS);
+
+	startBtn = createButton("START!");
+	startBtn.position(width / 2 - 30, height - 100);
+
+	resumeBtn = createButton("RESUME!");
+	resumeBtn.position(width / 2 - 30, height - 100);
+	resumeBtn.hide();
+
+	restartBtn = createButton("RESTART!");
+	restartBtn.position(width / 2 - 30, height - 100);
+	restartBtn.hide();
+
+	var startToPlay = function name() {
+		mode = 1;
+		startBtn.hide();
+	};
+	startBtn.mousePressed(startToPlay);
+
+	var freezeToPlay = function name() {
+		mode = 1;
+		resumeBtn.hide();
+	};
+	resumeBtn.mousePressed(freezeToPlay);
+
+	var restartPlay = function name() {
+		mode = 1;
+		winMode = false;
+		gameManager.restartGame();
+		restartBtn.hide();
+	};
+	restartBtn.mousePressed(restartPlay);
 }
 
 function draw() {
-  background(0);
+	background(0);
 
-  if (mode == 0) {
-    startMode();
-  } else if (mode == 1) {
-    playMode();
-  } else if (mode == 2) {
-    freezeMode();
-  } else {
-    finishMode();
-  }
-  fill("white");
+	if (mode == 0) {
+		startMode();
+	} else if (mode == 1) {
+		playMode();
+	} else if (mode == 2) {
+		freezeMode();
+	} else {
+		finishMode();
+	}
+	fill("white");
 
-  if (!focused && mode == 1) {
-    mode = 2;
-  }
+	if (!focused && mode == 1) {
+		mode = 2;
+	}
 }
 
 function keyReleased() {
-  gameManager.keyReleased(keyCode);
+	gameManager.keyReleased(keyCode);
 }
 
 function keyPressed() {
-  if (keyCode == 69) {
-    mode = 2;
-  }
+	if (keyCode == 69) {
+		mode = 2;
+	}
 
-  gameManager.keyPress(keyCode);
+	gameManager.keyPress(keyCode);
 }
 
 function startMode() {
-  push();
+	push();
 
-  fill("white");
-  stroke("black");
-  strokeWeight(4);
-  textSize(24);
-  textAlign(CENTER);
-  text("ASTROIDS", width / 2, 200);
+	fill("white");
+	stroke("black");
+	strokeWeight(4);
+	textSize(24);
+	textAlign(CENTER);
+	text("ASTROIDS", width / 2, 200);
 
-  pop();
+	pop();
 }
 
 function playMode() {
-  if (
-    !gameManager.checkPlayerState() ||
-    gameManager.checkIfAstroidManagerEmpty()
-  ) {
-    if (gameManager.checkIfAstroidManagerEmpty()) {
-      winMode = true;
-    }
-    mode = 3;
-    finishMode();
-  }
+	if (!musicS.isLooping()) {
+		musicS.loop();
+	}
 
-  score += gameManager.play();
-  gameManager.drawPlayText(score);
+	if (
+		!gameManager.checkPlayerState() ||
+		gameManager.checkIfAstroidManagerEmpty()
+	) {
+		if (gameManager.checkIfAstroidManagerEmpty()) {
+			winMode = true;
+		}
+		mode = 3;
+		finishMode();
+	}
+
+	score += gameManager.play();
+	gameManager.drawPlayText(score);
 }
 
 function freezeMode(context) {
-  gameManager.pause();
-  resumeBtn.show();
+	gameManager.pause();
+	resumeBtn.show();
 
-  push();
-  fill(0, 150);
-  rect(0, 0, width, height);
+	push();
+	fill(0, 150);
+	rect(0, 0, width, height);
 
-  fill("white");
-  stroke("black");
-  strokeWeight(4);
-  textSize(24);
-  textAlign(CENTER);
-  text("PAUSED", width / 2, 200);
+	fill("white");
+	stroke("black");
+	strokeWeight(4);
+	textSize(24);
+	textAlign(CENTER);
+	text("PAUSED", width / 2, 200);
 
-  pop();
+	pop();
 }
 
 function finishMode() {
-  gameManager.pause();
-  restartBtn.show();
+	gameManager.pause();
+	restartBtn.show();
 
-  let state = "WIN!";
-  if (!winMode) {
-    state = "LOST.";
-  }
+	let state = "WIN!";
+	if (!winMode) {
+		state = "LOST.";
+	}
 
-  push();
+	push();
 
-  fill(0, 150);
-  rect(0, 0, width, height);
+	fill(0, 150);
+	rect(0, 0, width, height);
 
-  fill("white");
-  stroke("black");
-  strokeWeight(4);
-  textSize(24);
-  textAlign(CENTER);
+	fill("white");
+	stroke("black");
+	strokeWeight(4);
+	textSize(24);
+	textAlign(CENTER);
 
-  text("YOU " + state, width / 2, 200);
-  textSize(12);
-  text("Score: " + score, width / 2, 250);
+	text("YOU " + state, width / 2, 200);
+	textSize(12);
+	text("Score: " + score, width / 2, 250);
 
-  pop();
+	pop();
 }
