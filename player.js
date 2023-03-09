@@ -4,6 +4,8 @@ class Player extends Actor {
     this.collide = new Rect(0, 0, 20, 40);
     this.lives = 3;
 
+    this.radius = 20;
+
     this.bulletManager = bulletManager;
 
     this.bulletPosition = createVector(0, -30);
@@ -53,7 +55,7 @@ class Player extends Actor {
   }
 
   shoot() {
-    let forwardVector = p5.Vector.fromAngle(this.angle - PI / 2, 30);
+    let forwardVector = p5.Vector.fromAngle(this.angle - HALF_PI, 30);
     this.bulletManager.addBullet(this.position, forwardVector, "red", 80, true);
 
     let thrust = createVector(0, 0.1);
@@ -106,7 +108,14 @@ class Player extends Actor {
     else stroke("white");
     translate(this.position.x, this.position.y);
     rotate(this.angle);
-    triangle(0, -20, 10, 20, -10, 20);
+    triangle(
+      0,
+      -this.radius,
+      this.radius / 2,
+      this.radius,
+      -this.radius / 2,
+      this.radius
+    );
     pop();
   }
 

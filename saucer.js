@@ -11,12 +11,21 @@ class Saucer extends Actor {
 
     this.hasShot = false;
     this.bulletCooldown = 40;
+    this.noiseScale = 0.02;
     this.timeBetweenSpawn = 200; // change to 9 seconds
 
+    this.radius = 5 * 10;
     this.direction = [0, 1];
     this.isMovingLeft = false;
-
     this.idleLocation = createVector(-40, -40);
+
+    this.size = 2; // 1 small, 2 large
+    const points = [1000, 200];
+    this.worth = points[max(this.size - 1, 0)];
+  }
+
+  hasCollided() {
+    this.deSpawn();
   }
 
   spawn() {
@@ -40,8 +49,6 @@ class Saucer extends Actor {
   }
 
   move() {
-    this.debugShoot();
-
     if (this.isMovingLeft) {
       if (this.position.x > width) {
         this.shootingMode = false;
@@ -62,31 +69,24 @@ class Saucer extends Actor {
     if (this.bulletCooldown == 0 && !this.hasShot) {
       this.shoot();
     }
-
-    //console.log(this.position);
-  }
-
-  debugShoot(){
-    let l = p5.Vector.lerp(this.position, this.player.position, 0.5);
-    push();
-    fill("blue");
-    circle(l.x, l.y, 10);
-    pop();
-    
   }
 
   shoot() {
-    console.log("Shoot");
-    let l = p5.Vector.lerp(this.position, this.player.position, 0.5);
-    l.setMag(1);
+    let a = atan2(
+      this.player.position.y - this.position.y,
+      this.player.position.x - this.position.x
+    );
 
-    console.log(l);
-    push();
-    fill("red");
-    circle(l.x, l.y, 10);
-    pop();
+    let aNoise = noise(this.noiseScale) * a;
+    let forwardVector = p5.Vector.fromAngle(a, 30);
 
-    this.bulletManager.addBullet(this.position, l, "red", 400, true);
+    this.bulletManager.addBullet(
+      this.position,
+      forwardVector,
+      "red",
+      400,
+      false
+    );
 
     this.hasShot = true;
   }
@@ -119,7 +119,7 @@ class Saucer extends Actor {
   display() {
     push();
     fill("green");
-    circle(this.position.x, this.position.y, 10);
+    circle(this.position.x, this.position.y, this.radius);
     pop();
   }
 }

@@ -1,5 +1,5 @@
 class Bullet extends Actor {
-  constructor(position, velocity, color, ttl) {
+  constructor(position, velocity, color, ttl, isFromPlayer) {
     super(position, 3);
 
     this.acceleration.set(velocity);
@@ -7,7 +7,7 @@ class Bullet extends Actor {
     this.color = color;
     this.ttl = ttl;
     this.isHit = false;
-    this.isFromPlayer = false;
+    this.isFromPlayer = isFromPlayer;
   }
 
   update() {

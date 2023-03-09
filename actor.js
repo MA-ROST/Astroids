@@ -10,6 +10,9 @@ class Actor {
 
     this.collide = new Rect(0, 0, 0, 0);
 
+    this.worth = 0;
+    this.radius = 0;
+
     this.isHit = false;
     this.increment = false;
   }
@@ -27,21 +30,21 @@ class Actor {
     }
   }
 
-  isCollide(actor) {
-    if (this.position.dist(actor.position) < 20) {
-      this.hasCollided(true);
-      actor.hasCollided(true);
-    } else {
-      this.hasCollided(false);
-      actor.hasCollided(false);
-      this.increment = false;
-      actor.increment = false;
+  checkIfHit(actor) {
+    var d = dist(
+      this.position.x,
+      this.position.y,
+      actor.position.x,
+      actor.position.y
+    );
+
+    if (d <= actor.radius) {
+      this.hasCollided();
+      actor.hasCollided();
     }
   }
 
-  hasCollided(outcome) {
-    this.isHit = outcome;
-  }
+  hasCollided() {}
 
   isOnEdge(vect) {
     if (vect.x - 30 > width) {
