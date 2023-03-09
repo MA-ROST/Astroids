@@ -8,6 +8,7 @@ class GameManager {
     this.astroidManager.addAstroids(10, this.astroidManager, 3);
 
     this.player = new Player(this.bulletManager);
+    this.saucer = new Saucer(createVector(-40, -40), 2.5, this.bulletManager, this.player);
     //let enemyLocat = createVector(0, height / 2);
 
     this.canEarnPoints = true;
@@ -74,6 +75,9 @@ class GameManager {
 
     this.player.display();
     this.player.update();
+
+    this.saucer.update();
+    this.saucer.display();
 
     this.keyCheck();
 
