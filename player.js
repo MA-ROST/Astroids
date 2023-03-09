@@ -1,7 +1,6 @@
 class Player extends Actor {
   constructor(bulletManager) {
     super(createVector(width / 2, height / 2), 3);
-    this.collide = new Rect(0, 0, 20, 40);
     this.lives = 3;
 
     this.radius = 20;

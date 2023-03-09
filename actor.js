@@ -8,8 +8,6 @@ class Actor {
 
     this.angle = 0;
 
-    this.collide = new Rect(0, 0, 0, 0);
-
     this.worth = 0;
     this.radius = 0;
 
