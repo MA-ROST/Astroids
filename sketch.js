@@ -18,6 +18,7 @@ let musicS;
 let destroy1S;
 let destroy2S;
 let shootS;
+let warpS;
 
 function preload() {
 	soundFormats("wav", "mp3");
@@ -25,6 +26,7 @@ function preload() {
 	destroy1S = loadSound("sound/SI_DestroyMini.wav");
 	destroy2S = loadSound("sound/SI_Destroy2.wav");
 	shootS = loadSound("sound/SI_Shoot.wav");
+	warpS = loadSound("sound/SI_Warp.wav");
 
 	destroy1S.setVolume(0.5);
 	musicS.setVolume(0.15);
@@ -32,12 +34,13 @@ function preload() {
 	destroy1S.playMode("restart");
 	destroy2S.playMode("restart");
 	shootS.playMode("restart");
+	warpS.playMode("restart");
 }
 
 function setup() {
 	createCanvas(600, 600);
 
-	gameManager = new GameManager(destroy1S, destroy2S, shootS);
+	gameManager = new GameManager(destroy1S, destroy2S, shootS, warpS);
 
 	startBtn = createButton("START!");
 	startBtn.position(width / 2 - 30, height - 100);
@@ -86,7 +89,11 @@ function draw() {
 	fill("white");
 
 	if (!focused && mode == 1) {
+		musicS.setVolume(0.02);
 		mode = 2;
+	}
+	else if (focused && mode == 1) {
+		musicS.setVolume(0.15);
 	}
 }
 

@@ -1,5 +1,5 @@
 class GameManager {
-	constructor(destroy1S, destroy2S, shootS) {
+	constructor(destroy1S, destroy2S, shootS, warpS) {
 		this.mode = [0, 1, 2];
 		this.activeMode = 0;
 
@@ -9,7 +9,7 @@ class GameManager {
 		this.astroidManager = new AstroidManager(destroy1S, destroy2S);
 		this.astroidManager.addAstroids(10, this.astroidManager, 3);
 
-		this.player = new Player(this.bulletManager);
+		this.player = new Player(this.bulletManager, warpS);
 		this.saucer = new Saucer(
 			createVector(-40, -40),
 			2.5,
