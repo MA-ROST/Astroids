@@ -1,5 +1,5 @@
 let player;
-let enemy;
+let saucer;
 
 let bulletManager;
 let astroidManager;
@@ -20,9 +20,6 @@ function setup() {
   createCanvas(600, 600);
 
   gameManager = new GameManager();
-
-  //let enemyLocat = createVector(0, height / 2);
-  //enemy = new Saucer(enemyLocat, 2.5);
 
   startBtn = createButton("START!");
   startBtn.position(width / 2 - 30, height - 100);
@@ -98,8 +95,11 @@ function startMode() {
 }
 
 function playMode() {
-  if(!gameManager.checkPlayerState() || gameManager.checkIfAstroidManagerEmpty()){
-    if(gameManager.checkIfAstroidManagerEmpty()){
+  if (
+    !gameManager.checkPlayerState() ||
+    gameManager.checkIfAstroidManagerEmpty()
+  ) {
+    if (gameManager.checkIfAstroidManagerEmpty()) {
       winMode = true;
     }
     mode = 3;
@@ -146,7 +146,7 @@ function finishMode() {
   strokeWeight(4);
   textSize(24);
   textAlign(CENTER);
-  
+
   text("YOU " + state, width / 2, 200);
   textSize(12);
   text("Score: " + score, width / 2, 250);
