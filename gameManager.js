@@ -72,7 +72,8 @@ class GameManager {
     this.bulletManager.checkIfHitActor(this.player, true);
     score += this.bulletManager.checkIfHitActor(this.saucer, false);
 
-    this.astroidManager.checkIfPlayerHitsAstroids(this.player);
+    this.astroidManager.checkIfActorHitsAstroids(this.player);
+    this.astroidManager.checkIfActorHitsAstroids(this.saucer);
 
     this.player.checkIfHit(this.saucer);
 

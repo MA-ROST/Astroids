@@ -41,18 +41,17 @@ class AstroidManager {
     this.astroids = this.astroids.filter((astroid) => astroid.size > 0);
   }
 
-  checkIfPlayerHitsAstroids(player) {
+  checkIfActorHitsAstroids(actor) {
     for (let astroid of this.astroids) {
       var d = dist(
-        player.position.x,
-        player.position.y,
+        actor.position.x,
+        actor.position.y,
         astroid.position.x,
         astroid.position.y
       );
 
-      if (d <= astroid.radius + 10) {
-        //console.log("HIT");
-        player.hasCollided();
+      if (d <= astroid.radius + actor.radius/2) {
+        actor.hasCollided();
         astroid.break();
       }
     }
