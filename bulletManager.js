@@ -62,7 +62,7 @@ class BulletManager {
           astroid.position.y
         );
 
-        if (d < astroid.radius - 2 && !bullet.isHit) {
+        if (d < astroid.radius - 1 && !bullet.isHit) {
           console.log("HIT");
           astroid.break();
           numDestroyed += astroid.worth;

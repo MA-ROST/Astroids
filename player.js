@@ -56,7 +56,7 @@ class Player extends Actor {
 
   shoot() {
     let forwardVector = p5.Vector.fromAngle(this.angle - HALF_PI, 30);
-    this.bulletManager.addBullet(this.position, forwardVector, "red", 80, true);
+    this.bulletManager.addBullet(this.position, forwardVector, "red", 200, true);
 
     let thrust = createVector(0, 0.1);
     thrust.setHeading(this.angle - HALF_PI);
