@@ -3,12 +3,12 @@ class AstroidManager {
     this.astroids = [];
   }
 
-  clearAstroids(){
+  clearAstroids() {
     this.astroids.length = 0;
   }
 
   isEmpty() {
-    if(this.astroids.length != 0){
+    if (this.astroids.length != 0) {
       return false;
     }
     return true;
@@ -17,8 +17,8 @@ class AstroidManager {
   addAstroid(manager, size, position, angle) {
     if (position === undefined) {
       position = p5.Vector.random2D();
-      position.x *= width + width/3;
-      position.y *= height + height/3;
+      position.x *= width + width / 3;
+      position.y *= height + height / 3;
     }
     if (angle === undefined) {
       angle = random(10);
@@ -50,7 +50,7 @@ class AstroidManager {
         astroid.position.y
       );
 
-      if (d <= astroid.radius + actor.radius/2) {
+      if (d <= astroid.radius + actor.radius / 2) {
         actor.hasCollided();
         astroid.break();
       }

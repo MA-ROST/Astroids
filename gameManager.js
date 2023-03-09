@@ -65,8 +65,8 @@ class GameManager {
   play() {
     let score = 0;
     score += this.bulletManager.checkIfHitAsteroid(
-    this.astroidManager.astroids,
-    this.canEarnPoints
+      this.astroidManager.astroids,
+      this.canEarnPoints
     );
 
     this.bulletManager.checkIfHitActor(this.player, true);

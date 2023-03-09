@@ -31,21 +31,6 @@ class Astroid extends Actor {
     this.immunity = 20;
   }
 
-  hasCollided(outcome) {
-    this.isHit = outcome;
-
-    if (this.isHit && !this.increment) {
-      this.increment = true;
-
-      this.size -= 1;
-      if (this.size <= 0) {
-        // Die
-      } else {
-        // Break into two
-      }
-    }
-  }
-
   break() {
     if (!this.hasBeenBroken && this.immunity <= 0) {
       this.manager.addAstroid(this.manager, this.size - 1, this.position.copy());
@@ -68,8 +53,10 @@ class Astroid extends Actor {
   draw() {
     push();
     translate(this.position.x, this.position.y);
+
     stroke(this.color);
     noFill();
+
     beginShape();
     for (let i = 0; i < 10; i++) {
       var angle = map(i, 0, this.total, 0, TWO_PI);
@@ -79,9 +66,7 @@ class Astroid extends Actor {
       vertex(x, y);
     }
     endShape(CLOSE);
-    noStroke();  
-    fill("green");
-    text(this.immunity, 0,0);
+
     pop();
   }
 }

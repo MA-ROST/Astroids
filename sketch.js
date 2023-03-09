@@ -14,8 +14,6 @@ let score = 0;
 let canEarnPoints = true;
 let winMode = false;
 
-let thrustValue = 2;
-
 function setup() {
   createCanvas(600, 600);
 
@@ -66,7 +64,6 @@ function draw() {
     finishMode();
   }
   fill("white");
-  text("MODE = " + mode, 10, 60);
 
   if (!focused && mode == 1) {
     mode = 2;
@@ -142,6 +139,7 @@ function finishMode() {
   }
 
   push();
+
   fill(0, 150);
   rect(0, 0, width, height);
 

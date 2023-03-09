@@ -4,7 +4,6 @@ class BulletManager {
   }
 
   addBullet(position, velocity, color, ttl, isFromPlayer) {
-    //console.log("adding bullet");
     this.bullets.push(
       new Bullet(position.copy(), velocity.copy(), color, ttl, isFromPlayer)
     );
@@ -34,20 +33,18 @@ class BulletManager {
         actor.position.y
       );
 
-      if(bullet.isFromPlayer != isPlayer){
-        
+      if (bullet.isFromPlayer != isPlayer) {
         if (d <= actor.radius && !bullet.isHit) {
-          console.log("HIT");
           actor.hasCollided();
-          if(bullet.isFromPlayer && !isPlayer){
+          if (bullet.isFromPlayer && !isPlayer) {
             numDestroyed += actor.worth;
           }
           bullet.isHit = true;
         }
       }
     }
-    this.bullets = this.bullets.filter((bullet) => bullet.isHit == false);
 
+    this.bullets = this.bullets.filter((bullet) => bullet.isHit == false);
     return numDestroyed;
   }
 
@@ -70,6 +67,7 @@ class BulletManager {
         }
       }
     }
+
     this.bullets = this.bullets.filter((bullet) => bullet.isHit == false);
     return numDestroyed;
   }
