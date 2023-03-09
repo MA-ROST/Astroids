@@ -67,6 +67,10 @@ function draw() {
   }
   fill("white");
   text("MODE = " + mode, 10, 60);
+
+  if (!focused && mode == 1) {
+    mode = 2;
+  }
 }
 
 function keyReleased() {
