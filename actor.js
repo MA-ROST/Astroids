@@ -61,23 +61,10 @@ class Actor {
     return false;
   }
 
-  loopEdge() {
-    if (this.position.x - 30 > width) {
-      this.position.x = 0;
-    }
-    if (this.position.x + 30 < 0) {
-      this.position.x = width;
-    }
-
-    if (this.position.y - 30 > height) {
-      this.position.y = 0;
-    }
-    if (this.position.y + 30 < 0) {
-      this.position.y = height;
-    }
-  }
-
   loopEdge(size) {
+    if(size === undefined){
+      size = 30;
+    }
     if (this.position.x - size > width) {
       this.position.x = 0 - size;
     }
