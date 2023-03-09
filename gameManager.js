@@ -8,47 +8,51 @@ class GameManager {
     this.astroidManager.addAstroids(10, this.astroidManager, 3);
 
     this.player = new Player(this.bulletManager);
-    this.saucer = new Saucer(createVector(-40, -40), 2.5, this.bulletManager, this.player);
-    //let enemyLocat = createVector(0, height / 2);
+    this.saucer = new Saucer(
+      createVector(-40, -40),
+      2.5,
+      this.bulletManager,
+      this.player
+    );
 
     this.canEarnPoints = true;
   }
 
-  keyPress(keyCode){
+  keyPress(keyCode) {
     if (keyCode == 32) {
       this.player.shoot();
     }
-  
+
     if (keyCode == DOWN_ARROW) {
       this.player.hyperspace();
     }
 
-    if(keyCode == 49){
+    if (keyCode == 49) {
       console.log("DAA");
       this.destroyAllAstroids();
     }
-    if(keyCode == 50){
+    if (keyCode == 50) {
       console.log("KP");
       this.killPlayer();
     }
   }
 
-  keyReleased(keyCode){
+  keyReleased(keyCode) {
     if (keyCode === UP_ARROW) {
       this.player.engineOff();
     }
   }
 
-  checkPlayerState(){
+  checkPlayerState() {
     //console.log(this.player.lives);
     return this.player.alive();
   }
 
-  checkIfAstroidManagerEmpty(){
+  checkIfAstroidManagerEmpty() {
     return this.astroidManager.isEmpty();
   }
 
-  drawPlayText(score){
+  drawPlayText(score) {
     push();
     fill("grey");
     stroke("black");
@@ -58,14 +62,19 @@ class GameManager {
     pop();
   }
 
-  play(){
+  play() {
     let score = 0;
     score += this.bulletManager.checkIfHitAsteroid(
-      this.astroidManager.astroids,
-      this.canEarnPoints
+    this.astroidManager.astroids,
+    this.canEarnPoints
     );
 
+    this.bulletManager.checkIfHitActor(this.player, true);
+    score += this.bulletManager.checkIfHitActor(this.saucer, false);
+
     this.astroidManager.checkIfPlayerHitsAstroids(this.player);
+
+    this.player.checkIfHit(this.saucer);
 
     this.astroidManager.draw();
     this.astroidManager.update();
@@ -84,19 +93,19 @@ class GameManager {
     return score;
   }
 
-  pause(){
+  pause() {
     this.astroidManager.draw();
     this.bulletManager.draw();
     this.player.display();
   }
 
-  keyCheck(){
+  keyCheck() {
     if (keyIsDown(UP_ARROW)) {
       this.player.thrust(1);
     } else {
       this.player.thrust(0);
     }
-  
+
     if (keyIsDown(LEFT_ARROW)) {
       this.player.turnShip(-0.05);
     } else if (keyIsDown(RIGHT_ARROW)) {
@@ -104,16 +113,16 @@ class GameManager {
     }
   }
 
-  restartGame(){
+  restartGame() {
     this.astroidManager.clearAstroids();
     this.astroidManager.addAstroids(10, this.astroidManager, 3);
     this.player.lives = 3;
   }
 
-  destroyAllAstroids(){
+  destroyAllAstroids() {
     this.astroidManager.clearAstroids();
   }
-  killPlayer(){
+  killPlayer() {
     this.player.lives = 0;
   }
 }
