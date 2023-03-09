@@ -4,7 +4,7 @@ class BulletManager {
   }
 
   addBullet(position, velocity, color, ttl, isFromPlayer) {
-    console.log("adding bullet");
+    //console.log("adding bullet");
     this.bullets.push(
       new Bullet(position.copy(), velocity.copy(), color, ttl, isFromPlayer)
     );

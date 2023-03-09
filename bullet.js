@@ -13,6 +13,8 @@ class Bullet extends Actor {
   update() {
     this.ttl = max(this.ttl - 1, 0);
     super.update();
+
+    //console.log(this.position);
   }
 
   alive() {
