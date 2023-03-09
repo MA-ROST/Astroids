@@ -24,6 +24,33 @@ class BulletManager {
     }
   }
 
+  checkIfHitActor(actor, isPlayer) {
+    let numDestroyed = 0;
+    for (const bullet of this.bullets) {
+      var d = dist(
+        bullet.position.x,
+        bullet.position.y,
+        actor.position.x,
+        actor.position.y
+      );
+
+      if(bullet.isFromPlayer != isPlayer){
+        
+        if (d <= actor.radius && !bullet.isHit) {
+          console.log("HIT");
+          actor.hasCollided();
+          if(bullet.isFromPlayer && !isPlayer){
+            numDestroyed += actor.worth;
+          }
+          bullet.isHit = true;
+        }
+      }
+    }
+    this.bullets = this.bullets.filter((bullet) => bullet.isHit == false);
+
+    return numDestroyed;
+  }
+
   checkIfHitAsteroid(astroids, canBeHit) {
     let numDestroyed = 0;
     for (const bullet of this.bullets) {
